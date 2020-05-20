@@ -1,0 +1,23 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: rabbitmq
+  namespace: common
+spec:
+  releaseName: rabbitmq
+  chart:
+    git: https://github.com/bitnami/charts
+    ref: master
+    path: bitnami/rabbitmq
+  values:
+    replicas: 3
+    resources:
+      requests:
+        memory: 256Mi
+        cpu: 100m
+    nodeSelector:
+      beta.kubernetes.io/arch: amd64
+    ingress.tls: true
+    metrics.enabled: true
+    volumePermissions.enabled: true
